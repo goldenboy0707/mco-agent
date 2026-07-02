@@ -1,0 +1,74 @@
+[
+  {
+    "scenario_id": "TC-001",
+    "titre_scenario": "Rupture de flux Logstash — changement de format AWS CloudTrail en PROD",
+    "verdict_attendu": "MCO_OK",
+    "criticite_attendue": "P1",
+    "ticket_entrant": {
+      "ticket_id": "INC-20260625-001",
+      "composant": "pipeline_data::logstash_ingest",
+      "environnement": "PROD",
+      "description": "Alerte supervision CloudWatch : le pipeline Logstash est en échec de parsing depuis 10:15 UTC. Les events AWS CloudTrail arrivent dans un nouveau format JSON non reconnu par le filtre grok en place. Perte totale d'ingestion des logs de sécurité sur l'index sec-logs-prod. Aucun event ingéré depuis 45 minutes. Rupture de flux confirmée par l'équipe SOC."
+    }
+  },
+  {
+    "scenario_id": "TC-002",
+    "titre_scenario": "Saturation disque cluster Elasticsearch de production — OOM imminent",
+    "verdict_attendu": "MCO_OK",
+    "criticite_attendue": "P1",
+    "ticket_entrant": {
+      "ticket_id": "INC-20260625-002",
+      "composant": "infrastructure_cloud::elasticsearch_cluster_prod",
+      "environnement": "PROD",
+      "description": "Le cluster Elasticsearch de production es-prod-01 affiche une saturation disque à 97% sur les nœuds data-hot. Le heap JVM oscille à 92% avec des épisodes d'OOM killer déclenchés par le kernel. Deux nœuds data sont déjà passés en status RED. L'indisponibilité des shards primaires entraîne un crash des requêtes d'indexation depuis 08:42 UTC."
+    }
+  },
+  {
+    "scenario_id": "TC-003",
+    "titre_scenario": "Clés d'API AWS modifiées sans notification — connexion Logstash rejetée",
+    "verdict_attendu": "MCO_OK",
+    "criticite_attendue": "P2",
+    "ticket_entrant": {
+      "ticket_id": "INC-20260625-003",
+      "composant": "pipeline_data::logstash_output_s3",
+      "environnement": "PROD",
+      "description": "L'équipe infra cloud a procédé à une rotation des credentials IAM du compte de service aws-logstash-svc sans émettre de ticket de changement ni notification préalable. Depuis la rotation, le plugin output S3 de Logstash rejette toutes les connexions avec l'erreur 'AccessDenied — InvalidAccessKeyId'. Les identifiants modifiés provoquent une dégradation du pipeline : les events sont mis en file d'attente interne mais l'archivage S3 est en échec complet."
+    }
+  },
+  {
+    "scenario_id": "TC-004",
+    "titre_scenario": "Bug d'affichage graphique sur dashboard Kibana EDF — aucune perte de données",
+    "verdict_attendu": "MCO_OK",
+    "criticite_attendue": "P3",
+    "ticket_entrant": {
+      "ticket_id": "INC-20260625-004",
+      "composant": "supervision_applicative::kibana_dashboard_edf",
+      "environnement": "PROD",
+      "description": "Le dashboard EDF 'Consommation Temps Réel' dans Kibana présente un bug d'affichage : le graphique en barres de la section 'Répartition par site' ne se charge plus après application du filtre de date sur les 7 derniers jours. Le visuel reste en état de chargement infini. Les données sous-jacentes dans Elasticsearch sont intactes et accessibles via l'API. Impact limité à la visualisation pour les opérateurs de supervision."
+    }
+  },
+  {
+    "scenario_id": "TC-005",
+    "titre_scenario": "Demande de réinitialisation de mot de passe Windows — poste Corporate",
+    "verdict_attendu": "HORS_PERIMETRE",
+    "criticite_attendue": "N/A",
+    "ticket_entrant": {
+      "ticket_id": "INC-20260625-005",
+      "composant": "gestion_identites::active_directory",
+      "environnement": "CORPORATE",
+      "description": "L'utilisateur Jean Dupont (service comptabilité, site Lyon) signale qu'il ne peut plus se connecter à son poste de travail Windows 11. Son mot de passe Active Directory a expiré après le délai de 90 jours. Il demande une réinitialisation de mot de passe pour retrouver l'accès à sa session et à ses applications métier (Outlook, SAP). Aucun composant d'infrastructure ou de pipeline n'est impacté."
+    }
+  },
+  {
+    "scenario_id": "TC-006",
+    "titre_scenario": "Incident Elasticsearch en environnement DEV — hors périmètre RUN",
+    "verdict_attendu": "HORS_PERIMETRE",
+    "criticite_attendue": "N/A",
+    "ticket_entrant": {
+      "ticket_id": "INC-20260625-006",
+      "composant": "infrastructure_cloud::elasticsearch_cluster_dev",
+      "environnement": "DEV",
+      "description": "Le cluster Elasticsearch de développement es-dev-03 présente un crash récurrent du nœud master suite à une saturation heap. Le cluster passe en status RED toutes les 2 heures. L'équipe de développement demande un redémarrage et une augmentation de la heap JVM de 4 Go à 8 Go. Aucun impact en production — environnement de développement isolé utilisé uniquement pour les tests d'intégration."
+    }
+  }
+]
