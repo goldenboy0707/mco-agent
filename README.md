@@ -1,6 +1,6 @@
 # ITOps Triage Agent: Automated IT Support Routing with LLM Orchestration
 
-### *A production-ready AI agent bridging Outlook, Make.com, and Jira Cloud to classify, prioritize, and alert on enterprise IT incidents in real-time
+### A production-ready AI agent bridging Outlook, Make.com, and Jira Cloud to classify, prioritize, and alert on enterprise IT incidents in real-time
 
 ---
 
