@@ -9,7 +9,7 @@
 ### Problem Statement & Project Origin
 The inspiration for this project stems from real-world operational friction observed during my experience in enterprise environments (such as EDF). Within our production teams, engineers took turns serving as the rotating **"On-Call Engineer"** (or Incident Commander). We experienced firsthand that manually parsing, qualifying, and dispatching dozens of incoming support emails was a massive drain on high-value engineering hours.
 
-Critical business infrastructure failures—such as an entire sales team experiencing a "502 Bad Gateway" on a core CRM—frequently sat unassigned in overloaded shared inboxes while the on-call engineer was drowning in manual Level 1 triage. This operational delay drastically increases Mean Time to Resolution (MTTR), causing avoidable business downtime.
+Critical business infrastructure failures—such as an entire sales team experiencing a "502 Bad Gateway" on a core CRM frequently sat unassigned in overloaded shared inboxes while the on-call engineer was drowning in manual Level 1 triage. This operational delay drastically increases Mean Time to Resolution (MTTR), causing avoidable business downtime.
 
 ### The Solution
 The **ITOps Triage Agent** replaces this manual bottleneck with an autonomous, data-driven automation loop. Instead of acting as a conversational chatbot, this agent functions as a specialized **programmatic decision engine**. 
